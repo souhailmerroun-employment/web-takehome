@@ -18,6 +18,10 @@ interface LandingPageProps {
     messages: MessageInterface[];
 };
 
+interface ChatLatestMessage {
+    chatId: string,
+    latestMessage: MessageInterface
+}
 
 const ChatShow = ({ chats, messages, users }) => {
 
@@ -28,13 +32,14 @@ const ChatShow = ({ chats, messages, users }) => {
     const currentChatMessages = messages.filter(message => message.chatId === chatId);
 
     /**
-   * For each chat,
-   * Get the latest message with the timestamp
-   */
+    * DUPLICATE
+    * For each chat,
+    * Get the latest message with the timestamp
+    */
     const latestMessagesPerChat = messages.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
     const chatsLatestMessages = []
     chats.map(chat => {
-        let chatLatestMessage = {};
+        let chatLatestMessage: ChatLatestMessage = { chatId: null, latestMessage: null }
         chatLatestMessage.chatId = chat.id;
         chatLatestMessage.latestMessage = latestMessagesPerChat.find(message => message.chatId === chat.id);
         chatsLatestMessages.push(chatLatestMessage);
